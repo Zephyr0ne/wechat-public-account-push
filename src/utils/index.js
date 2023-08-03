@@ -1,6 +1,6 @@
 import { Lunar, Solar } from 'lunar-javascript'
 import cloneDeep from 'lodash/cloneDeep.js'
-import { selfDayjs } from './set-def-dayjs.js'
+import dayjs from 'dayjs'
 import config from '../../config/exp-config.js'
 /** @type {{
  * id: number,
@@ -61,18 +61,18 @@ export const sortBirthdayTime = (list) => {
       let diffDay = -1
       do {
         const [month, day] = item.date.split('-')
-        const lunar = Lunar.fromYmd(selfDayjs().year() + yearOffset, Number(month), Number(day))
+        const lunar = Lunar.fromYmd(dayjs().year() + yearOffset, Number(month), Number(day))
         const solar = lunar.getSolar()
-        diffDay = Math.ceil(selfDayjs(`${solar.getYear()}-${solar.getMonth()}-${solar.getDay()}`).diff(selfDayjs(), 'day', true))
+        diffDay = Math.ceil(dayjs(`${solar.getYear()}-${solar.getMonth()}-${solar.getDay()}`).diff(dayjs(), 'day', true))
         yearOffset++
       } while (diffDay < 0)
       item.diffDay = diffDay
     } else {
-      const diffDay = Math.ceil(selfDayjs(`${selfDayjs().format('YYYY')}-${item.date}`).diff(selfDayjs(), 'day', true))
+      const diffDay = Math.ceil(dayjs(`${dayjs().format('YYYY')}-${item.date}`).diff(dayjs(), 'day', true))
       if (diffDay >= 0) {
         item.diffDay = diffDay
       } else {
-        item.diffDay = Math.ceil(selfDayjs(`${selfDayjs().add(1, 'year').format('YYYY')}-${item.date}`).diff(selfDayjs(), 'day', true))
+        item.diffDay = Math.ceil(dayjs(`${dayjs().add(1, 'year').format('YYYY')}-${item.date}`).diff(dayjs(), 'day', true))
       }
     }
   })
@@ -85,7 +85,7 @@ export const sortBirthdayTime = (list) => {
  * @returns
  */
 export const getConstellation = (date) => {
-  const year = selfDayjs().year()
+  const year = dayjs().year()
   const constellationCn = ['白羊', '金牛', '双子', '巨蟹', '狮子', '处女', '天秤', '天蝎', '射手', '摩羯', '水瓶', '双鱼']
   const constellationEn = ['aries', 'taurus', 'gemini', 'cancer', 'leo', 'virgo', 'libra', 'scorpio', 'sagittarius', 'capricorn', 'aquarius', 'pisces']
   const [month, day] = date.split('-').map(Number)

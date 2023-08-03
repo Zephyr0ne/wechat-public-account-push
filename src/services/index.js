@@ -14,7 +14,7 @@ import {
   getWeatherCityInfo,
   sleep,
 } from '../utils/index.js'
-import { selfDayjs, timeZone } from '../utils/set-def-dayjs.js'
+import { timeZone } from '../utils/set-def-dayjs.js'
 
 axios.defaults.timeout = 10000
 
@@ -435,18 +435,18 @@ export const getCourseSchedule = (courseSchedule) => {
   if (!courseSchedule) {
     return ''
   }
-  const week = (selfDayjs().day() + 6) % 7
+  const week = (dayjs().day() + 6) % 7
   // 如果课程表是一个数组，认为只有单周的课表
   if (Array.isArray(courseSchedule)) {
     return (courseSchedule[week] || []).join(getLB())
   }
   // 如果是一个对象，则根据基准日期判断单双周
-  const benchmarkDate = selfDayjs(courseSchedule.benchmark.date)
-  const diff = selfDayjs().diff(benchmarkDate.set('day', 0).set('hour', 0).set('minute', 0).set('second', 0)
+  const benchmarkDate = dayjs(courseSchedule.benchmark.date)
+  const diff = dayjs().diff(benchmarkDate.set('day', 0).set('hour', 0).set('minute', 0).set('second', 0)
     .set('millisecond', 0), 'millisecond')
   const isSameKind = Math.floor(diff / 7 / 86400000) % 2 === 0
   const kind = ((isSameKind && courseSchedule.benchmark.isOdd) || (!isSameKind && !courseSchedule.benchmark.isOdd)) ? 'odd' : 'even'
-  
+
   const temp = ((courseSchedule.courses && courseSchedule.courses[kind] && courseSchedule.courses[kind][week]) || [])
   const schedule = temp.join(getLB())
   const wechatTestCourseSchedule = []
@@ -506,7 +506,7 @@ export const getBirthdayMessage = (festivals) => {
     if (!it.useLunar) {
       return it
     }
-    const date = selfDayjs().add(it.diffDay, 'day')
+    const date = dayjs().add(it.diffDay, 'day')
     return {
       ...it,
       soarYear: date.format('YYYY'),
@@ -515,7 +515,7 @@ export const getBirthdayMessage = (festivals) => {
   })
   let resMessage = ''
   const wechatTestBirthdayMessage = []
-  
+
 
   birthdayList.forEach((item, index) => {
     if (
@@ -529,15 +529,15 @@ export const getBirthdayMessage = (festivals) => {
         // 获取周岁
         let age
         if (!item.useLunar) {
-          age = selfDayjs().diff(`${item.year}-${item.date}`, 'year')
+          age = dayjs().diff(`${item.year}-${item.date}`, 'year')
         } else {
-          age = selfDayjs().year() - item.year - 1
+          age = dayjs().year() - item.year - 1
         }
 
         if (item.diffDay === 0) {
-          message = `今天是 「${item.name}」 的${age && item.isShowAge ? `${(item.useLunar ? 1 : 0) + age}岁` : ''}${item.useLunar ? '阴历' : '公历'}生日哦，祝${item.name}生日快乐！`
+          message = `今天是 「${item.name}」 的${age && item.isShowAge ? `${(item.useLunar ? 1 : 0) + age}岁` : ''}${item.useLunar ? '农历' : '国历'}生日哦，祝${item.name}生日快乐！`
         } else {
-          message = `距离 「${item.name}」 的${age && item.isShowAge ? `${age + 1}岁` : ''}${item.useLunar ? '阴历' : '公历'}生日还有${item.diffDay}天`
+          message = `距离 「${item.name}」 的${age && item.isShowAge ? `${age + 1}岁` : ''}${item.useLunar ? '农历' : '国历'}生日还有${item.diffDay}天`
         }
       }
 
@@ -556,7 +556,7 @@ export const getBirthdayMessage = (festivals) => {
         wechatTestBirthdayMessage.push({
           name: toLowerLine(`wxBirthday_${index}`),
           value: message,
-          color: getColor()
+          color: getColor(),
         })
       }
     }
@@ -578,9 +578,9 @@ export const getDateDiffList = (customizedDateList) => {
   const dateList = customizedDateList || config.CUSTOMIZED_DATE_LIST
 
   dateList.forEach((item) => {
-    item.diffDay = Math.ceil(selfDayjs().diff(selfDayjs(item.date), 'day', true))
+    item.diffDay = Math.ceil(dayjs().diff(dayjs(item.date), 'day', true))
     if (item.diffDay <= 0) {
-      item.diffDay = Math.abs(Math.floor(selfDayjs().diff(selfDayjs(item.date), 'day', true)))
+      item.diffDay = Math.abs(Math.floor(dayjs().diff(dayjs(item.date), 'day', true)))
     }
   })
 
@@ -788,7 +788,7 @@ export const getAggregatedData = async () => {
       { name: toLowerLine('toName'), value: user.name, color: getColor() },
       {
         name: toLowerLine('date'),
-        value: `${selfDayjs().format('YYYY-MM-DD')} ${weekList[selfDayjs().format('d')]}`,
+        value: `${dayjs().format('YYYY-MM-DD')} ${weekList[dayjs().format('d')]}`,
         color: getColor(),
       },
       { name: toLowerLine('province'), value: user.province || config.PROVINCE, color: getColor() },

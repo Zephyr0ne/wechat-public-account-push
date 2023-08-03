@@ -2,7 +2,7 @@
 const TEMPLATE_CONFIG = [
   {
     id: '0001',
-    title: '又是美好的一天',
+    title: '轻舟已过万重山',
     desc:
     /*开始*/
       `
@@ -10,7 +10,7 @@ const TEMPLATE_CONFIG = [
       
     ---      
       下个休息日：{{holidaytts.DATA}}
-    
+      
     ---
       
       城市：{{city.DATA}}
