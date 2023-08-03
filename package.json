@@ -7,9 +7,7 @@
   "scripts": {
     "dev": "cross-env APP_MODE=prod node main.js",
     "test": "cross-env NODE_OPTIONS=--experimental-vm-modules npx jest",
-    "prepare": "node prepare-husky.mjs",
-    "prepare-husky-win": "husky install",
-    "prepare-husky-mac": "husky install && echo 'PATH=$PATH:'$PATH >> .husky/_/husky.sh",
+    "prepare": "husky install",
     "lint": "eslint --fix .",
     "params-log": "cross-env APP_MODE=params-log node main.js",
     "server": "cross-env APP_MODE=server node main.js",
