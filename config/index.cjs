@@ -16,7 +16,7 @@ const USER_CONFIG = {
       // 想要发送的人的名字
       name: 'Zephyr0ne',
       // PushDeer的key
-      id: 'PDU18514TlSrOLZmqKVQHwOnZ39ObhuQ9PeZUeH2a',
+      id: 'PDU18514T2vgqLx0Fo3gnjeIf6xFh2cXeporIZmbW',
       // template-config中的id
       useTemplateId: '0001',
       // 新历生日, 仅用作获取星座运势, 格式必须为MM-DD
@@ -91,11 +91,11 @@ const USER_CONFIG = {
   CALLBACK_TEMPLATE_ID: '9999',
 
   CALLBACK_USERS: [
-    // {
-    //   name: '自己',
-    //   // pushDeer中的key
-    //   id: 'PDU18514TnkkUuF2kj3wbBOiiJd2xTGkM0VN4XXia',
-    // }
+    {
+      name: '自己',
+      // pushDeer中的key
+      id: 'PDU18514T2vgqLx0Fo3gnjeIf6xFh2cXeporIZmbW',
+    }
   ],
 
 }

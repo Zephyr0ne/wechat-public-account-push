@@ -37,12 +37,15 @@ const TEMPLATE_CONFIG = [
       
       ---
       
-      每日一言： {{one_talk.DATA}}
+      文化熏陶： {{wx_poetry_content_0.DATA}}  {{wx_poetry_content_1.DATA}}
       
-      土味情话： {{earthy_love_words.DATA}}
-
-     
-      {{comprehensive_horoscope.DATA}}
+      {{love_horoscope.DATA}}
+      
+      {{career_horoscope.DATA}}
+      
+      {{wealth_horoscope.DATA}}
+      
+      {{healthy_horoscope.DATA}}
 
 
     `
@@ -85,12 +88,15 @@ const TEMPLATE_CONFIG = [
       
       ---
       
-      每日一言： {{one_talk.DATA}}
+       文化熏陶： {{wx_poetry_content_0.DATA}}  {{wx_poetry_content_1.DATA}}
       
-      土味情话： {{earthy_love_words.DATA}}
-
-     
-      {{comprehensive_horoscope.DATA}}
+      {{love_horoscope.DATA}}
+      
+      {{career_horoscope.DATA}}
+      
+      {{wealth_horoscope.DATA}}
+      
+      {{healthy_horoscope.DATA}}
 
 
     `
