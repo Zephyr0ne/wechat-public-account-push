@@ -37,7 +37,7 @@ const TEMPLATE_CONFIG = [
       
       ---
       
-      文化熏陶： {{wx_poetry_content_0.DATA}}  {{wx_poetry_content_1.DATA}}
+      文化熏陶： {{poetry_content.DATA}}
       
       {{love_horoscope.DATA}}
       
@@ -88,7 +88,7 @@ const TEMPLATE_CONFIG = [
       
       ---
       
-       文化熏陶： {{wx_poetry_content_0.DATA}}  {{wx_poetry_content_1.DATA}}
+       文化熏陶： {{poetry_content.DATA}}
       
       {{love_horoscope.DATA}}
       
