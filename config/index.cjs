@@ -38,7 +38,7 @@ const USER_CONFIG = {
       // 想要发送的人的名字
       name: '大宝贝',
       // PushDeer的key
-      id: 'PDU18519Ti0JQhYtHln0jPMI4JPheibxcpjHc2Z3Y',
+      id: 'PDU18519TMgIkOQ42oYIhw8pJXdFThC1ivB2QQqVH',
       // template-config中的id
       useTemplateId: '0002',
       // 新历生日, 仅用作获取星座运势, 格式必须为MM-DD
