@@ -184,33 +184,33 @@ export const getCIBA = async () => {
   }).catch((err) => err)
 
   if (res.status === 200 && res) {
-    const data = res.data
+    const { data } = res
     const keys = [{
       from: 'content',
-      to: 'note_en'
+      to: 'note_en',
     }, {
       from: 'note',
-      to: 'note_ch'
+      to: 'note_ch',
     }]
-    keys.forEach(obj => {
+    keys.forEach((obj) => {
       const value = data[obj.from]
       const arr = []
       for (let j = 0, i = 0; j < value.length; j += 20) {
         arr.push({
           name: `wx_${obj.to}_${i}`,
           value: value.slice(j, j + 20),
-          color: getColor()
+          color: getColor(),
         })
         i++
       }
       data[`wx_${obj.to}`] = arr
-    }) 
+    })
 
     return {
-      noteEn: data['content'],
-      wxNoteEn: data['wx_note_en'],
-      noteCh: data['note'],
-      wxNoteCh: data['wx_note_ch'],
+      noteEn: data.content,
+      wxNoteEn: data.wx_note_en,
+      noteCh: data.note,
+      wxNoteCh: data.wx_note_ch,
     }
   }
   console.error('金山词霸每日一句: 发生错误', res)
@@ -241,14 +241,14 @@ export const getHolidaytts = async () => {
     arr.push({
       name: `wx_holidaytts_${i}`,
       value: data.slice(j, j + 20),
-      color: getColor()
+      color: getColor(),
     })
     i++
   }
 
   return {
     holidaytts: data,
-    wxHolidaytts: arr
+    wxHolidaytts: arr,
   }
 }
 
@@ -269,24 +269,24 @@ export const getOneTalk = async (type) => {
   const res = await axios.get(url).catch((err) => err)
 
   if (res && res.status === 200) {
-    const data = res.data
+    const { data } = res
     const keys = [{
       from: 'hitokoto',
-      to: 'one_talk'
+      to: 'one_talk',
     }]
-    keys.forEach(obj => {
+    keys.forEach((obj) => {
       const value = data[obj.from]
       const arr = []
       for (let j = 0, i = 0; j < value.length; j += 20) {
         arr.push({
           name: `wx_${obj.to}_${i}`,
           value: value.slice(j, j + 20),
-          color: getColor()
+          color: getColor(),
         })
         i++
       }
       data[`wx_${obj.to}`] = arr
-    }) 
+    })
     return data
   }
 
@@ -337,14 +337,14 @@ export const getEarthyLoveWords = async () => {
     arr.push({
       name: `wx_earthy_love_words_${i}`,
       value: data.slice(j, j + 20),
-      color: getColor()
+      color: getColor(),
     })
     i++
   }
 
   return {
     earthyLoveWords: data,
-    wxEarthyLoveWords: arr
+    wxEarthyLoveWords: arr,
   }
 }
 
@@ -363,14 +363,14 @@ export const getMomentCopyrighting = async () => {
     arr.push({
       name: `wx_moment_copyrighting_${i}`,
       value: data.slice(j, j + 20),
-      color: getColor()
+      color: getColor(),
     })
     i++
   }
 
   return {
     momentCopyrighting: data,
-    wxMomentCopyrighting: arr
+    wxMomentCopyrighting: arr,
   }
 }
 
@@ -390,14 +390,14 @@ export const getPoisonChickenSoup = async () => {
     arr.push({
       name: `wx_poison_chicken_soup_${i}`,
       value: data.slice(j, j + 20),
-      color: getColor()
+      color: getColor(),
     })
     i++
   }
 
   return {
     poisonChickenSoup: data,
-    wxPoisonChickenSoup: arr
+    wxPoisonChickenSoup: arr,
   }
 }
 
@@ -430,7 +430,7 @@ export const getPoetry = async () => {
       wxContent.push({
         name: `wx_poetry_content_${i}`,
         value: content.slice(j, j + 20),
-        color: getColor()
+        color: getColor(),
       })
       i++
     }
@@ -572,11 +572,11 @@ export const getCourseSchedule = (courseSchedule) => {
     wechatTestCourseSchedule.push({
       name: toLowerLine(`wxCourseSchedule_${index}`),
       value: item,
-      color: getColor()
+      color: getColor(),
     })
   })
 
-  return {schedule, wechatTestCourseSchedule}
+  return { schedule, wechatTestCourseSchedule }
 }
 
 /**
@@ -634,7 +634,6 @@ export const getBirthdayMessage = (festivals) => {
   let resMessage = ''
   const wechatTestBirthdayMessage = []
 
-
   birthdayList.forEach((item, index) => {
     if (
       !config.FESTIVALS_LIMIT
@@ -680,7 +679,7 @@ export const getBirthdayMessage = (festivals) => {
     }
   })
 
-  return {resMessage, wechatTestBirthdayMessage}
+  return { resMessage, wechatTestBirthdayMessage }
 }
 
 /**
@@ -822,10 +821,10 @@ export const getAggregatedData = async () => {
     noteEn = DEFAULT_OUTPUT.noteEn,
     wxNoteEn = '',
     noteCh = DEFAULT_OUTPUT.noteCh,
-    wxNoteCh = ''
+    wxNoteCh = '',
   } = await getCIBA()
   // 获取下一休息日
-  const {holidaytts, wxHolidaytts} = await getHolidaytts()
+  const { holidaytts, wxHolidaytts } = await getHolidaytts()
   // 获取每日一言
   const {
     hitokoto: oneTalk = DEFAULT_OUTPUT.oneTalk,
@@ -833,18 +832,18 @@ export const getAggregatedData = async () => {
     from: talkFrom = DEFAULT_OUTPUT.talkFrom,
   } = await getOneTalk(config.LITERARY_PREFERENCE)
   // 获取土味情话
-  const {earthyLoveWords, wxEarthyLoveWords} = await getEarthyLoveWords()
+  const { earthyLoveWords, wxEarthyLoveWords } = await getEarthyLoveWords()
   // 获取朋友圈文案
-  const {momentCopyrighting, wxMomentCopyrighting} = await getMomentCopyrighting()
+  const { momentCopyrighting, wxMomentCopyrighting } = await getMomentCopyrighting()
   // 获取毒鸡汤
-  const {poisonChickenSoup, wxPoisonChickenSoup} = await getPoisonChickenSoup()
+  const { poisonChickenSoup, wxPoisonChickenSoup } = await getPoisonChickenSoup()
   // 获取古诗古文 poetry
   const {
     dynasty: poetryDynasty = DEFAULT_OUTPUT.poetryDynasty,
     author: poetryAuthor = DEFAULT_OUTPUT.poetryAuthor,
     title: poetryTitle = DEFAULT_OUTPUT.poetryTitle,
     content: poetryContent,
-    wxContent: wxPoetryContent
+    wxContent: wxPoetryContent,
   } = await getPoetry()
   // 获取插槽中的数据
   const slotParams = getSlotList().map((item) => ({ name: item.keyword, value: item.checkout, color: getColor() }))
@@ -879,7 +878,7 @@ export const getAggregatedData = async () => {
     const constellationFortune = await getConstellationFortune(user.horoscopeDate, user.horoscopeDateType)
 
     // 获取课表信息
-    const {schedule:courseSchedule, wechatTestCourseSchedule} = getCourseSchedule(user.courseSchedule || config.courseSchedule) || DEFAULT_OUTPUT.courseSchedule
+    const { schedule: courseSchedule, wechatTestCourseSchedule } = getCourseSchedule(user.courseSchedule || config.courseSchedule) || DEFAULT_OUTPUT.courseSchedule
 
     // 天行-早晚安
     const tianApiGreeting = [{
