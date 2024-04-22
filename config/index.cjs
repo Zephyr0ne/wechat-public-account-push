@@ -45,7 +45,7 @@ const USER_CONFIG = {
       horoscopeDate: '01-30',
       festivals: [
         // 注意：此条配置日期为阴历日期，因为`type`中 “生日” 之前有 * 符号
-        {type: '*生日', name: '您', year: '1998', date: '01-03',isShowAge: true,},
+        {type: '*生日', name: '您', year: '1997', date: '01-03',isShowAge: true,},
         {type: '节日', name: '你和你老公的初见纪念日', year: '2021', date: '07-15',},
       ],
       // 我们在一起已经有xxxx天了的配置

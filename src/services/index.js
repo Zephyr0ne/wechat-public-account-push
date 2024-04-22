@@ -14,7 +14,7 @@ import {
   getWeatherCityInfo,
   sleep,
 } from '../utils/index.js'
-import { timeZone } from '../utils/set-def-dayjs.js'
+import { selfDayjs, timeZone } from '../utils/set-def-dayjs.js'
 
 axios.defaults.timeout = 10000
 
@@ -646,9 +646,9 @@ export const getBirthdayMessage = (festivals) => {
         // 获取周岁
         let age
         if (!item.useLunar) {
-          age = dayjs().diff(`${item.year}-${item.date}`, 'year')
+          age = selfDayjs().diff(`${item.year}-${item.date}`, 'year')
         } else {
-          age = dayjs().year() - item.year - 1
+          age = selfDayjs().year() - item.year - 1
         }
 
         if (item.diffDay === 0) {
