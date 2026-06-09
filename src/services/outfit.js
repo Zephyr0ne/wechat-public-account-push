@@ -24,6 +24,7 @@ const DEFAULT_TIMEZONE = 'Asia/Shanghai'
 const IMGBB_UPLOAD_URL = 'https://api.imgbb.com/1/upload'
 const IMGBB_MIN_EXPIRATION_SECONDS = 60
 const IMGBB_MAX_EXPIRATION_SECONDS = 15552000
+const SVG_FONT_FAMILY = '"Noto Sans CJK SC", "Noto Sans SC", "PingFang SC", "Microsoft YaHei", sans-serif'
 
 const ROLE_BOX = {
   上装: {
@@ -123,7 +124,7 @@ const svgTextLines = (value, x, y, options = {}) => {
     fill = '#3f454f',
   } = options
   return splitText(value, maxLength).map((line, index) => (
-    `<text x="${x}" y="${y + index * lineHeight}" font-size="${size}" font-weight="${weight}" fill="${fill}">${escapeXml(line)}</text>`
+    `<text x="${x}" y="${y + index * lineHeight}" font-family="${SVG_FONT_FAMILY}" font-size="${size}" font-weight="${weight}" fill="${fill}">${escapeXml(line)}</text>`
   )).join('')
 }
 
@@ -605,8 +606,8 @@ const createBaseImage = (plan, selectedItems, meta = {}) => {
   const cityText = [meta.province, meta.city].filter(Boolean).join(' ')
   return `
     <svg xmlns="http://www.w3.org/2000/svg" width="900" height="1400" viewBox="0 0 900 1400">
-      <text x="70" y="112" font-size="44" font-weight="800" fill="#242832">${escapeXml(plan.title)}</text>
-      <text x="72" y="164" font-size="24" font-weight="600" fill="#707782">${escapeXml([dateText, cityText].filter(Boolean).join(' · '))}</text>
+      <text x="70" y="112" font-family="${SVG_FONT_FAMILY}" font-size="44" font-weight="800" fill="#242832">${escapeXml(plan.title)}</text>
+      <text x="72" y="164" font-family="${SVG_FONT_FAMILY}" font-size="24" font-weight="600" fill="#707782">${escapeXml([dateText, cityText].filter(Boolean).join(' · '))}</text>
       ${svgTextLines(plan.reason || '天气信息不足，按日常舒适穿搭生成。', 72, 222, {
     maxLength: 29,
     lineHeight: 34,

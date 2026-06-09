@@ -30,6 +30,11 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
+    - name: Install Chinese fonts
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y fontconfig fonts-noto-cjk
+        fc-cache -fv
     - run: npm ci
     - run: npm run dev --if-present
     env: 
