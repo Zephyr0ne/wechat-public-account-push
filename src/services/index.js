@@ -5,6 +5,7 @@ import cloneDeep from 'lodash/cloneDeep.js'
 import config from '../../config/exp-config.js'
 import TEMPLATE_CONFIG from '../../config/template-config.cjs'
 import { DEFAULT_OUTPUT, TYPE_LIST, RUN_TIME_STORAGE } from '../store/index.js'
+import { getDailyOutfit } from './outfit.js'
 import {
   getConstellation,
   randomNum,
@@ -863,6 +864,28 @@ export const getAggregatedData = async () => {
       value: weatherInfo[item] || '获取失败',
       color: getColor(),
     }))
+    const outfit = await getDailyOutfit(weatherInfo, {
+      province: useProvince,
+      city: useCity,
+      userName: user.name,
+    })
+    const outfitMessage = outfit ? [{
+      name: toLowerLine('outfitRecommendation'),
+      value: outfit.recommendation,
+      color: getColor(),
+    }, {
+      name: toLowerLine('outfitImage'),
+      value: outfit.image,
+      color: getColor(),
+    }, {
+      name: toLowerLine('outfitImageUrl'),
+      value: outfit.imageUrl,
+      color: getColor(),
+    }, {
+      name: toLowerLine('outfitImagePath'),
+      value: outfit.imagePath,
+      color: getColor(),
+    }] : []
 
     // 统计日列表计算日期差
     const dateDiffParams = getDateDiffList(user.customizedDateList).map((item) => ({
@@ -932,6 +955,7 @@ export const getAggregatedData = async () => {
       .concat(constellationFortune)
       .concat(dateDiffParams)
       .concat(slotParams)
+      .concat(outfitMessage)
       .concat(tianApiGreeting)
       .concat(tianApiWeather)
       .concat(tianApiNetworkHot)
@@ -1039,6 +1063,14 @@ const assembleOpenUrl = () => ''
  * @returns {Promise<{success: boolean, name}>}
  */
 const sendMessageByPushDeer = async (user, templateId, wxTemplateData) => {
+  if (!user.id) {
+    console.error(`${user.name}: PushDeer key未配置，请检查GitHub Secrets或本地环境变量`)
+    return {
+      name: user.name,
+      success: false,
+    }
+  }
+
   // 模板拼装
   const modelData = model2Data(templateId, wxTemplateData, false, false)
   if (!modelData) {

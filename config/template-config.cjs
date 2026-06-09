@@ -28,6 +28,12 @@ const TEMPLATE_CONFIG = [
       提醒:  {{ganmao.DATA}}
       
       注意:  {{notice.DATA}}
+
+      ---
+
+      {{outfit_recommendation.DATA}}
+
+      {{outfit_image.DATA}}
     
       ---
       
@@ -79,6 +85,12 @@ const TEMPLATE_CONFIG = [
       提醒:  {{ganmao.DATA}}
       
       注意:  {{notice.DATA}}
+
+      ---
+
+      {{outfit_recommendation.DATA}}
+
+      {{outfit_image.DATA}}
     
       ---
       

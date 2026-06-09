@@ -1,5 +1,11 @@
 import { defineConfig } from 'vite'
 import fs from 'fs-extra'
+import { builtinModules } from 'module'
+
+const nodeBuiltins = [...new Set([
+  ...builtinModules,
+  ...builtinModules.map((name) => `node:${name}`),
+])]
 
 export default defineConfig({
   build: {
@@ -11,11 +17,13 @@ export default defineConfig({
     outDir: 'cloud',
     rollupOptions: {
       external: [
+        ...nodeBuiltins,
         'node-schedule',
         'axios',
         'jsdom',
         'lodash/cloneDeep.js',
         'lunar-javascript',
+        'sharp',
         'dayjs',
         'dayjs/plugin/timezone.js',
         'dayjs/plugin/utc.js',
