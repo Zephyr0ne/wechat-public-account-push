@@ -1,7 +1,9 @@
 import {
   buildOutfitPlan,
+  ensureSampleClothes,
   getSecondsUntilNextDeleteTime,
   parseTemperature,
+  renderOutfitImage,
   selectOutfitItems,
 } from '../src/services/outfit'
 
@@ -54,5 +56,32 @@ describe('outfit', () => {
       deleteAtHour: 1,
       deleteAtMinute: 0,
     }, '2026-06-09T01:30:00+08:00')).toBe(84600)
+  })
+
+  test('renderOutfitImage renders Chinese text as png', async () => {
+    const localDir = 'runtime/test-clothes'
+    const outputPath = 'runtime/outfits/test-chinese-render.png'
+    await ensureSampleClothes(localDir)
+
+    await renderOutfitImage({
+      plan: {
+        title: '舒适温暖的日常穿搭',
+        reason: '天气阴，19-28℃',
+        advice: '温度舒服，可以短袖配裤装或裙装。',
+      },
+      selectedItems: [
+        {
+          role: '上装',
+          category: '短袖',
+          name: 'white-t-shirt',
+          url: `${localDir}/短袖/white-t-shirt.png`,
+        },
+      ],
+      outputPath,
+      meta: {
+        province: '四川',
+        city: '成都',
+      },
+    })
   })
 })

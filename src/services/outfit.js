@@ -24,7 +24,7 @@ const DEFAULT_TIMEZONE = 'Asia/Shanghai'
 const IMGBB_UPLOAD_URL = 'https://api.imgbb.com/1/upload'
 const IMGBB_MIN_EXPIRATION_SECONDS = 60
 const IMGBB_MAX_EXPIRATION_SECONDS = 15552000
-const SVG_FONT_FAMILY = '"Noto Sans CJK SC", "Noto Sans SC", "PingFang SC", "Microsoft YaHei", sans-serif'
+const SVG_FONT_FAMILY = 'Noto Sans CJK SC, Noto Sans SC, PingFang SC, Microsoft YaHei, sans-serif'
 
 const ROLE_BOX = {
   上装: {
